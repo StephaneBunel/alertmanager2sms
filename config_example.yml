@@ -1,0 +1,48 @@
+---
+
+am2sms:
+  logLevel:                  "INFO"
+  eventBufferSize:           10
+
+  http:
+    address:                 ":7171"
+    endpoint:                "/alertmanager2sms"
+
+  sms:
+    profile:                 "default"
+    template: |
+      {{ $numAlerts := len .Alerts }}Hello {{ .Receiver }},
+      Alertmanger raised {{ $numAlerts }} {{ .Status | ToUpper }} alert(s):
+      {{ range $index, $alert := .Alerts }}
+      ({{ add $index 1 }}/{{ $numAlerts }}) {{ $alert.Status | ToUpper }} {{ $alert.Labels.severity | ToUpper }} {{ $alert.Labels.instance }}/{{ $alert.Labels.job }}
+      Begin: {{ $alert.StartsAt }}
+      {{ $alert.Annotations.description }}
+      {{ end }}
+      Thank you.
+
+  recipients:
+    enabled:
+      - read_from_csv_file
+
+    config:
+      read_from_csv_file:
+        engine: "csv"
+        filename: "recipients.csv"
+
+sendsms:
+  profiles:
+    default:
+      provider:              "ovh"
+      providerConfig:
+        api:
+          location:          "ovh-eu"
+          appKey:            "<app key>"
+          appSecret:         "<app secret>"
+          consumerKey:       "<consumer key>"
+          servicename:       "<service-name>"
+        smsOptions:
+          sender:            "<sender>"
+        smsOptionsCaps:
+          nostopclause:      "noStopClause"
+          servicename:       "serviceName"
+          senderforresponse: "senderForResponse"

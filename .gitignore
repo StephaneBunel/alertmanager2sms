@@ -1,0 +1,24 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+/am2sms
+/recipients.csv
+/NOTES.md
+/.vscode
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Vendor subdirectory
+vendor/**/
+
+# Test config file (real ID)
+config.yml
+
+# POST simulation
+alert.json
