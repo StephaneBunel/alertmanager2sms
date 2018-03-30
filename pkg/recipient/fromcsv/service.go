@@ -60,7 +60,9 @@ func (rr *csvRecipientRepository) Config(conf *viper.Viper) error {
 
 func (rr *csvRecipientRepository) Info() domain.RecipientRepositoryInfo {
 	return domain.RecipientRepositoryInfo{
-		Name: "csv",
+		Name:    "csv",
+		Authors: "Stéphane Bunel",
+		Version: "0.1",
 	}
 }
 

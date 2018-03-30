@@ -9,9 +9,5 @@ func New() domain.IRecipientRepository {
 }
 
 func init() {
-	domain.RecipientRepositoryCatalog().Add(
-		New,
-		domain.RecipientRepositoryInfo{
-			Name: "csv",
-		})
+	domain.RecipientRepositoryCatalog().Add(New, (&csvRecipientRepository{}).Info())
 }
