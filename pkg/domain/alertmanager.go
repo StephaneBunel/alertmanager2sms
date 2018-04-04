@@ -1,5 +1,7 @@
 package domain
 
+import "github.com/romana/rlog"
+
 type (
 	// AlertManagerEvent represents the JSON struct that is POST'd to a web_hook
 	// received from Prometheus' Alertmanager.  There are other fields in the
@@ -28,4 +30,15 @@ type (
 		Json         string            `json:"-"` // Json is not from the alert JSON but holds a JSON formatted string
 		// of this alert.  It is not the same JSON as originally passed in.
 	}
+
+	AmEventChan chan *AmEvent
 )
+
+// NewEvantChan returns a new Alertmanger Event channel
+func NewEventChan(qlen int) AmEventChan {
+	if qlen < 1 {
+		qlen = 128
+		rlog.Info("set alertmanger event queue channel to", qlen, "because it is lower than 1.")
+	}
+	return make(AmEventChan, qlen)
+}

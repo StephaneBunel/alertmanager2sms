@@ -1,4 +1,4 @@
-package sendsmsinteractor
+package sendsmsadapter
 
 import (
 	"bytes"

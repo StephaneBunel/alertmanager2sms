@@ -11,8 +11,8 @@ all: $(EXE)
 $(EXE): $(SRC)
 	$(GOBUILD) $(PROJ)/cmd/am2sms
 
-vendor:
-	govendor sync -v
+govendor:
+	@govendor sync -v
 
 clean:
 	@rm -f $(EXE)

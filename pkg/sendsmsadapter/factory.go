@@ -1,4 +1,4 @@
-package sendsmsinteractor
+package sendsmsadapter
 
 import (
 	"os"
@@ -21,7 +21,7 @@ Begin: {{ $alert.StartsAt }}
 Thank you.
 `
 
-func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.AmEventChan, rrs domain.IRecipientRepository) *SendSmsInteractor {
+func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.AmEventChan, rrs domain.IRecipientRepositoryer) *SendSmsInteractor {
 	if configSms == nil {
 		rlog.Error("configSms is nil")
 		os.Exit(1)

@@ -2,11 +2,11 @@ package main
 
 func main() {
 	conf := CreateConfig()
-	recipientRepository := CreateRecipientRepository(conf)
+	recipientRepository := UseRecipientRepository(conf)
 	amEventChan := CreateEventChan(conf)
 	webAdapter := CreateWebAdapter(conf, amEventChan)
-	sendSmsinteractor := CreateSendsmsInteractor(conf, amEventChan, recipientRepository)
-	go sendSmsinteractor.Worker()
-	go sendSmsinteractor.Worker()
+	sendSmsAdapter := CreateSendsmsAdapter(conf, amEventChan, recipientRepository)
+	go sendSmsAdapter.Worker()
+	go sendSmsAdapter.Worker()
 	webAdapter.Serve()
 }

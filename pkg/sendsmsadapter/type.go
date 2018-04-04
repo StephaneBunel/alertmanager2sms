@@ -1,4 +1,4 @@
-package sendsmsinteractor
+package sendsmsadapter
 
 import (
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
@@ -13,6 +13,6 @@ type (
 		eventChan                  domain.AmEventChan
 		smsService                 sendsms.ISmsService
 		smsTemplate                string
-		recipientRepositoryService domain.IRecipientRepository
+		recipientRepositoryService domain.IRecipientRepositoryer
 	}
 )

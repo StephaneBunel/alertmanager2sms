@@ -1,4 +1,4 @@
-package sendsmsinteractor_test
+package sendsmsadapter_test
 
 import (
 	"testing"
