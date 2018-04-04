@@ -6,6 +6,7 @@ import (
 	"github.com/romana/rlog"
 )
 
+// CreateEventChan returns a new AmEvent channel
 func CreateEventChan(cnf *appconfig.AppConfig) domain.AmEventChan {
 	qlen := cnf.Viper.GetInt(cnf.AppName() + ".eventBufferSize")
 	if qlen < 1 {

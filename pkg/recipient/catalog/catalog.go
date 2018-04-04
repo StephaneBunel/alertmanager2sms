@@ -1,4 +1,4 @@
-package recipient
+package catalog
 
 import (
 	"strings"
@@ -7,23 +7,13 @@ import (
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
 )
 
-type (
-	IRecipientRepositoryCatalog interface {
-		Register(func() domain.IRecipientRepositoryer, domain.RecipientRepositoryInfo)
-		Exists(name string) bool
-		New(name string) domain.IRecipientRepositoryer
-		ListByName() []string
-	}
-
-	repositoryCatalog map[string]func() domain.IRecipientRepositoryer
-)
-
 var (
 	catalogMu sync.RWMutex
-	catalog   repositoryCatalog = make(repositoryCatalog)
+	catalog   = make(repositoryCatalog)
 )
 
-func RepositoryCatalog() IRecipientRepositoryCatalog {
+// Default returns the default recipients repositories catalog
+func Default() IRecipientRepositoryCatalog {
 	return catalog
 }
 
@@ -64,7 +54,7 @@ func (c repositoryCatalog) ListByName() []string {
 	catalogMu.Lock()
 	defer catalogMu.Unlock()
 	repoList := make([]string, 0)
-	for repoName, _ := range c {
+	for repoName := range c {
 		repoList = append(repoList, repoName)
 	}
 	return repoList

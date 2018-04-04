@@ -9,6 +9,7 @@ import (
 	"github.com/romana/rlog"
 )
 
+// CreateSendsmsAdapter returns a new sendsms library adapter object
 func CreateSendsmsAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventChan, rrs domain.IRecipientRepositoryer) *sendsmsadapter.SendSmsInteractor {
 	cnfKey := cnf.AppName() + ".sms"
 	configSms := cnf.Viper.Sub(cnfKey)

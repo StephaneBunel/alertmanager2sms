@@ -5,14 +5,15 @@ import (
 
 	"github.com/StephaneBunel/alertmanager2sms/pkg/appconfig"
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
-	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient"
+	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient/catalog"
 
 	// Import recipient plugins
-	_ "github.com/StephaneBunel/alertmanager2sms/pkg/recipient/fromcsv"
+	_ "github.com/StephaneBunel/alertmanager2sms/pkg/recipient/handler"
 
 	"github.com/romana/rlog"
 )
 
+// UseRecipientRepository returns the selected recipients repository handler
 func UseRecipientRepository(conf *appconfig.AppConfig) domain.IRecipientRepositoryer {
 	keyConf := conf.AppName() + ".recipients.enabled"
 	enabledRecipientRepositories := conf.Viper.GetStringSlice(keyConf)
@@ -29,7 +30,7 @@ func UseRecipientRepository(conf *appconfig.AppConfig) domain.IRecipientReposito
 		os.Exit(1)
 	}
 	engine := csvConf.GetString("engine")
-	csvRecipRepo := recipient.RepositoryCatalog().New(engine)
+	csvRecipRepo := catalog.Default().New(engine)
 	if csvRecipRepo == nil {
 		rlog.Error("Recipients repository CSV not found!")
 		os.Exit(1)

@@ -2,7 +2,7 @@ package fromcsv
 
 import (
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
-	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient"
+	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient/catalog"
 )
 
 func New() domain.IRecipientRepositoryer {
@@ -10,5 +10,5 @@ func New() domain.IRecipientRepositoryer {
 }
 
 func init() {
-	recipient.RepositoryCatalog().Register(New, (&csvRecipientRepository{}).Info())
+	catalog.Default().Register(New, (&csvRecipientRepository{}).Info())
 }
