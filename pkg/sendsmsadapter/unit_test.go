@@ -39,8 +39,21 @@ Begin: {{ $alert.StartsAt }}
 Thank you.
 `
 
+var expectedResults = `
+Hello sysadmin,
+Alertmanger raised 1 FIRING alert(s):
+
+(1/1) FIRING CRITICAL cc3-admin-1/node_exporter
+Begin: 2017-10-31T09:10:44.021Z
+cc3-admin-1 of job node_exporter has been down for more than 5 minutes.
+
+Thank you.
+`
+
 func TestTemplate(t *testing.T) {
 
 	out := sendsmsadapter.TemplateAmEvent(&event, tpl)
-	t.Log(out)
+	if out != expectedResults {
+		t.Error(out)
+	}
 }

@@ -2,7 +2,6 @@ package sendsmsadapter
 
 import (
 	"bytes"
-	"fmt"
 	"strings"
 	"text/template"
 
@@ -39,27 +38,6 @@ func recipientsToPhones(recipients domain.RecipientList) []string {
 		phones = append(phones, recipient.PhoneNumbers...)
 	}
 	return phones
-}
-
-func AmEventToString(event *domain.AmEvent) string {
-	txt := ""
-	txt += fmt.Sprintf("[%s] %d alerts:\n",
-		strings.ToUpper(event.Status),
-		len(event.Alerts))
-	for i, alert := range event.Alerts {
-		txt += AmAlertToString(i, len(event.Alerts), alert)
-	}
-
-	return txt
-}
-
-func AmAlertToString(index int, total int, alert domain.AmAlert) string {
-	return fmt.Sprintf("(%d/%d): %s - %s\n%s\nBegin: %s",
-		index+1, total,
-		strings.ToUpper(alert.Status),
-		strings.ToUpper(alert.Labels["severity"]),
-		alert.Annotations["description"],
-		alert.StartsAt)
 }
 
 func TemplateAmEvent(event *domain.AmEvent, tpl string) string {
