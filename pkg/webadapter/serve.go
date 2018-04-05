@@ -6,7 +6,7 @@ import (
 	"github.com/romana/rlog"
 )
 
-func (srv *WebserviceHandler) Serve() {
+func (srv *WebserviceHandle) Serve() {
 	endpoint := "/"
 	rlog.Info("Adding home endpoint: GET", endpoint)
 	srv.router.HandleFunc(endpoint, srv.getHome).Methods("GET")

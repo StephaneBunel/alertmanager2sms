@@ -13,8 +13,8 @@ import (
 	"github.com/romana/rlog"
 )
 
-// UseRecipientRepository returns the selected recipients repository handler
-func UseRecipientRepository(conf *appconfig.AppConfig) domain.IRecipientRepositoryer {
+// OpenRecipientRepository returns the selected recipients repository handler
+func OpenRecipientRepository(conf *appconfig.AppConfig) domain.RecipientRepositoryer {
 	keyConf := conf.AppName() + ".recipients.enabled"
 	enabledRecipientRepositories := conf.Viper.GetStringSlice(keyConf)
 	if len(enabledRecipientRepositories) == 0 {

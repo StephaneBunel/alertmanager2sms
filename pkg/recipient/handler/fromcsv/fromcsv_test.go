@@ -3,14 +3,14 @@ package fromcsv_test
 import (
 	"testing"
 
-	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient/fromcsv"
+	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient/handler/fromcsv"
 
 	"github.com/spf13/viper"
 )
 
 func TestFromFile(t *testing.T) {
 	conf := viper.New()
-	conf.Set("filename", "../../../test/recipients.csv")
+	conf.Set("filename", "../../../../test/recipients.csv")
 
 	recipRepo := fromcsv.New()
 	err := recipRepo.Config(conf)

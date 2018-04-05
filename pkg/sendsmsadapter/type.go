@@ -8,11 +8,11 @@ import (
 )
 
 type (
-	SendSmsInteractor struct {
-		config                     *viper.Viper
-		eventChan                  domain.AmEventChan
-		smsService                 sendsms.ISmsService
-		smsTemplate                string
-		recipientRepositoryService domain.IRecipientRepositoryer
+	SendsmsAdapterHandle struct {
+		config              *viper.Viper
+		eventChan           domain.AmEventChan
+		smsService          sendsms.ISmsService
+		smsTemplate         string
+		recipientRepository domain.RecipientRepositoryer
 	}
 )

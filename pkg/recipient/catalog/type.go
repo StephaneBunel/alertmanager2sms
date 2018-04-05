@@ -5,12 +5,12 @@ import (
 )
 
 type (
-	IRecipientRepositoryCatalog interface {
-		Register(func() domain.IRecipientRepositoryer, domain.RecipientRepositoryInfo)
+	RecipientRepositoryCataloger interface {
+		Register(func() domain.RecipientRepositoryer, domain.RecipientRepositoryHandlerInfo)
 		Exists(name string) bool
-		New(name string) domain.IRecipientRepositoryer
+		New(name string) domain.RecipientRepositoryer
 		ListByName() []string
 	}
 
-	repositoryCatalog map[string]func() domain.IRecipientRepositoryer
+	repositoryCatalog map[string]func() domain.RecipientRepositoryer
 )

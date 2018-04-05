@@ -7,8 +7,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-func New(config *viper.Viper, eventChan domain.AmEventChan) *WebserviceHandler {
-	w := new(WebserviceHandler)
+func New(config *viper.Viper, eventChan domain.AmEventChan) *WebserviceHandle {
+	w := new(WebserviceHandle)
 	w.config = config
 	w.eventChan = eventChan
 	w.router = mux.NewRouter()

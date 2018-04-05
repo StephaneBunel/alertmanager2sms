@@ -8,7 +8,7 @@ import (
 )
 
 type (
-	WebserviceHandler struct {
+	WebserviceHandle struct {
 		config    *viper.Viper
 		router    *mux.Router
 		eventChan domain.AmEventChan

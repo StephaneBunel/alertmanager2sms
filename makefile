@@ -15,7 +15,8 @@ govendor:
 	@govendor sync -v
 
 clean:
-	@rm -f $(EXE)
+	@rm -fv $(EXE)
+	@rm -rfv ${GOPATH}/pkg/*/$(PROJ)/pkg/*
 
 tests:
 	go test -cover -timeout 60s $(PROJ)/pkg/...

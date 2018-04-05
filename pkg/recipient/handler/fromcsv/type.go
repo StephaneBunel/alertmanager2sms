@@ -7,7 +7,7 @@ import (
 )
 
 type (
-	csvRecipientRepository struct {
+	csvRepositoryHandle struct {
 		conf            *viper.Viper
 		filename        string
 		linkedRecipient *list.List

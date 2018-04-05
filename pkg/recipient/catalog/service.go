@@ -13,11 +13,11 @@ var (
 )
 
 // Default returns the default recipients repositories catalog
-func Default() IRecipientRepositoryCatalog {
+func Default() RecipientRepositoryCataloger {
 	return catalog
 }
 
-func (c repositoryCatalog) Register(factory func() domain.IRecipientRepositoryer, info domain.RecipientRepositoryInfo) {
+func (c repositoryCatalog) Register(factory func() domain.RecipientRepositoryer, info domain.RecipientRepositoryHandlerInfo) {
 	catalogMu.Lock()
 	defer catalogMu.Unlock()
 	var engineName = strings.ToLower(info.Name)
@@ -40,7 +40,7 @@ func (c repositoryCatalog) Exists(name string) bool {
 	return exists
 }
 
-func (c repositoryCatalog) New(name string) domain.IRecipientRepositoryer {
+func (c repositoryCatalog) New(name string) domain.RecipientRepositoryer {
 	catalogMu.Lock()
 	defer catalogMu.Unlock()
 	rr, exists := c[strings.ToLower(name)]

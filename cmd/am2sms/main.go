@@ -1,8 +1,9 @@
 package main
 
 func main() {
+	// bootstrap
 	conf := CreateConfig()
-	recipientRepository := UseRecipientRepository(conf)
+	recipientRepository := OpenRecipientRepository(conf)
 	amEventChan := CreateEventChan(conf)
 	webAdapter := CreateWebAdapter(conf, amEventChan)
 	sendSmsAdapter := CreateSendsmsAdapter(conf, amEventChan, recipientRepository)

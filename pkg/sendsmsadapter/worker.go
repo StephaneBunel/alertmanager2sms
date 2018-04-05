@@ -10,14 +10,14 @@ import (
 	"github.com/romana/rlog"
 )
 
-func (s *SendSmsInteractor) Worker() error {
+func (s *SendsmsAdapterHandle) Worker() error {
 	for {
 		select {
 		case event := <-s.eventChan:
 			rlog.Debug(event)
 			recipient := event.Receiver
 			rlog.Debug("recipient =", recipient)
-			recipients := s.recipientRepositoryService.FindByName(recipient)
+			recipients := s.recipientRepository.FindByName(recipient)
 			if len(recipients) == 0 {
 				rlog.Debug("recipient(s) not found")
 				break

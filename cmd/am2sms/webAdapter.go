@@ -8,7 +8,7 @@ import (
 )
 
 // CreateWebAdapter returns a new web adapter wich is the REST API
-func CreateWebAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventChan) *webadapter.WebserviceHandler {
+func CreateWebAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventChan) *webadapter.WebserviceHandle {
 	webAdapter := webadapter.New(cnf.Viper.Sub(cnf.AppName()+".http"), amEventChan)
 	rlog.Debug("webadapter:", webAdapter)
 	return webAdapter

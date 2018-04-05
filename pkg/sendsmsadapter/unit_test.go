@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
-	"github.com/StephaneBunel/alertmanager2sms/pkg/sendsmsinteractor"
+	"github.com/StephaneBunel/alertmanager2sms/pkg/sendsmsadapter"
 )
 
 var event = domain.AmEvent{
@@ -41,6 +41,6 @@ Thank you.
 
 func TestTemplate(t *testing.T) {
 
-	out := sendsmsinteractor.TemplateAmEvent(&event, tpl)
+	out := sendsmsadapter.TemplateAmEvent(&event, tpl)
 	t.Log(out)
 }

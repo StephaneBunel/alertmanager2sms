@@ -10,16 +10,16 @@ import (
 	"github.com/romana/rlog"
 )
 
-func (srv *WebserviceHandler) getHome(w http.ResponseWriter, req *http.Request) {
+func (srv *WebserviceHandle) getHome(w http.ResponseWriter, req *http.Request) {
 	w.Write([]byte("OK."))
 }
 
-func (srv *WebserviceHandler) getNewAmEvent(w http.ResponseWriter, req *http.Request) {
+func (srv *WebserviceHandle) getNewAmEvent(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
 	w.Write([]byte((`{ "status": "ERROR", "message:", "You must use POST verb with this endpoint." }`)))
 }
 
-func (srv *WebserviceHandler) postNewAmEvent(w http.ResponseWriter, req *http.Request) {
+func (srv *WebserviceHandle) postNewAmEvent(w http.ResponseWriter, req *http.Request) {
 	// params := mux.Vars(req)
 	rlog.Debug("Connection from:", req.RemoteAddr)
 

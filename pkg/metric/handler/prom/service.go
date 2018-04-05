@@ -1,6 +1,7 @@
 package prom
 
 import (
+	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -12,14 +13,17 @@ var (
 )
 
 func init() {
-
 	prometheus.MustRegister(AlertsReceived)
 }
 
-func New() IMetric {
-	return new(metric)
+func (pm *promMetric) Config() {
+
 }
 
-func Inc(metricName string) {
-
+func (pm *promMetric) Info() domain.MetricHandlerInfo {
+	return domain.MetricHandlerInfo{
+		Name:    "prom",
+		Authors: "Stéphane Bunel",
+		Version: "0.1",
+	}
 }

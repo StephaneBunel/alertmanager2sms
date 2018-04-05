@@ -1,11 +1,11 @@
 package domain
 
 type (
-	IMetric interface {
+	Metricer interface {
 		Config()
 	}
 
-	MetricInfo struct {
+	MetricHandlerInfo struct {
 		Name             string
 		Version          string
 		Authors          string

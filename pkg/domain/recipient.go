@@ -12,7 +12,7 @@ type (
 
 	RecipientList []*Recipient
 
-	RecipientRepositoryInfo struct {
+	RecipientRepositoryHandlerInfo struct {
 		Name             string
 		Version          string
 		Authors          string
@@ -22,11 +22,11 @@ type (
 		LongDescription  string
 	}
 
-	IRecipientRepositoryer interface {
+	RecipientRepositoryer interface {
 		Config(*viper.Viper) error
 		Add(*Recipient) error
 		FindByName(name string) RecipientList
-		Info() RecipientRepositoryInfo
+		Info() RecipientRepositoryHandlerInfo
 	}
 )
 
