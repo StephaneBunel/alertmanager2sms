@@ -25,7 +25,7 @@ func TestFromFile(t *testing.T) {
 	}
 	phone0 := recipients[0].PhoneNumbers[0]
 	if phone0 != "+123456789" {
-		t.Error("bob phones[0] should be +123456789. Not", phone0)
+		t.Error("bob phones[0] should be +123456789. Got:", phone0)
 		return
 	}
 }

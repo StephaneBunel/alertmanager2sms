@@ -10,7 +10,7 @@ import (
 )
 
 // CreateSendsmsAdapter returns a new sendsms library adapter object
-func CreateSendsmsAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventChan, rrs domain.RecipientRepositoryer) *sendsmsadapter.SendsmsAdapterHandle {
+func CreateSendsmsAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventChan, rrs domain.RecipientRepositoryer, metric domain.Metricer) *sendsmsadapter.SendsmsAdapterHandle {
 	cnfKey := cnf.AppName() + ".sms"
 	configSms := cnf.Viper.Sub(cnfKey)
 	if configSms == nil {
@@ -25,5 +25,6 @@ func CreateSendsmsAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventCh
 	}
 	ssa := sendsmsadapter.New(configSms, configSendSms, amEventChan, rrs)
 	rlog.Debug("Send Sms Interactor:", ssa)
+	rlog.Info("sendsms adapter successfully created")
 	return ssa
 }

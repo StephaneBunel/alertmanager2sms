@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
+	"github.com/romana/rlog"
 )
 
 var (
@@ -47,6 +48,7 @@ func (c repositoryCatalog) New(name string) domain.RecipientRepositoryer {
 	if exists {
 		return rr()
 	}
+	rlog.Error("recipient repository [", name, "] not found in catalog")
 	return nil
 }
 

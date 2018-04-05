@@ -21,5 +21,6 @@ func CreateConfig() *appconfig.AppConfig {
 		os.Exit(1)
 	}
 	rlog.Debug("Config =", conf)
+	rlog.Info("config successfully created")
 	return conf
 }

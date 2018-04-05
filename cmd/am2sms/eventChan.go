@@ -7,7 +7,7 @@ import (
 )
 
 // CreateEventChan returns a new AmEvent channel
-func CreateEventChan(cnf *appconfig.AppConfig) domain.AmEventChan {
+func CreateEventChan(cnf *appconfig.AppConfig, metric domain.Metricer) domain.AmEventChan {
 	qlen := cnf.Viper.GetInt(cnf.AppName() + ".eventBufferSize")
 	if qlen < 1 {
 		qlen = 128

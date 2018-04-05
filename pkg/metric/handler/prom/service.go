@@ -20,6 +20,10 @@ func (pm *promMetric) Config() {
 
 }
 
+func (pm *promMetric) IncCounter(name string) {
+
+}
+
 func (pm *promMetric) Info() domain.MetricHandlerInfo {
 	return domain.MetricHandlerInfo{
 		Name:    "prom",

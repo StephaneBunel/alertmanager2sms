@@ -7,7 +7,7 @@ import (
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
 	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient/catalog"
 
-	// Import recipient plugins
+	// Import recipient handlers
 	_ "github.com/StephaneBunel/alertmanager2sms/pkg/recipient/handler"
 
 	"github.com/romana/rlog"
@@ -32,16 +32,14 @@ func OpenRecipientRepository(conf *appconfig.AppConfig) domain.RecipientReposito
 	engine := csvConf.GetString("engine")
 	csvRecipRepo := catalog.Default().New(engine)
 	if csvRecipRepo == nil {
-		rlog.Error("Recipients repository CSV not found!")
 		os.Exit(1)
 	}
-
 	err := csvRecipRepo.Config(csvConf)
 	if err != nil {
 		rlog.Error(err)
 		os.Exit(1)
 	}
-
 	rlog.Debug("recipientRepository:", csvRecipRepo)
+	rlog.Info("recipient repository successfully opened")
 	return csvRecipRepo
 }

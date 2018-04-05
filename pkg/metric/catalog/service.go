@@ -4,6 +4,8 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/romana/rlog"
+
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
 )
 
@@ -47,6 +49,7 @@ func (c metricCatalog) New(name string) domain.Metricer {
 	if exists {
 		return rr()
 	}
+	rlog.Error("metric handler [", name, "] not found in catalog")
 	return nil
 }
 

@@ -3,6 +3,7 @@ package domain
 type (
 	Metricer interface {
 		Config()
+		IncCounter(name string)
 	}
 
 	MetricHandlerInfo struct {
