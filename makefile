@@ -3,8 +3,8 @@ EXE = am2sms
 SRC = cmd/**/*.go \
       pkg/**/*.go \
 
-LDFLAGS = -s
-GOBUILD = go build -v --ldflags="$(LDFLAGS)"
+LDFLAGS = -s -X main.VersionBuild=$(shell date --iso=s)
+GOBUILD = go build -v -ldflags="$(LDFLAGS)"
 
 all: $(EXE)
 
