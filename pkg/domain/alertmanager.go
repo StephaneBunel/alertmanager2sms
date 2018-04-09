@@ -15,7 +15,7 @@ type (
 		CommonAnnotations map[string]string `json:"commonAnnotations"`
 		ExternalURL       string            `json:"externalURL"`
 		Version           string            `json:"version"`
-		GroupKey          int               `json:"groupKey"`
+		GroupKey          string            `json:"groupKey"`
 	}
 
 	// Alert represents an individual alert from Prometheus and included in the
