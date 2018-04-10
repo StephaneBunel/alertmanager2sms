@@ -1,8 +1,12 @@
 package domain
 
+import (
+	"github.com/spf13/viper"
+)
+
 type (
 	Metricer interface {
-		Config()
+		Config(conf *viper.Viper) error
 		IncCounter(name string)
 	}
 

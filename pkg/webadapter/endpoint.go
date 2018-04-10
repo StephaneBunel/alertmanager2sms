@@ -22,6 +22,7 @@ func (srv *WebserviceHandle) getNewAmEvent(w http.ResponseWriter, req *http.Requ
 func (srv *WebserviceHandle) postNewAmEvent(w http.ResponseWriter, req *http.Request) {
 	// params := mux.Vars(req)
 	rlog.Debug("Connection from:", req.RemoteAddr)
+	srv.metricer.IncCounter("web_requests_total")
 
 	var event domain.AmEvent
 	err := json.NewDecoder(req.Body).Decode(&event)

@@ -7,10 +7,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-func New(config *viper.Viper, eventChan domain.AmEventChan) *WebserviceHandle {
+func New(config *viper.Viper, eventChan domain.AmEventChan, metric domain.Metricer) *WebserviceHandle {
 	w := new(WebserviceHandle)
 	w.config = config
 	w.eventChan = eventChan
 	w.router = mux.NewRouter()
+	w.metricer = metric
 	return w
 }

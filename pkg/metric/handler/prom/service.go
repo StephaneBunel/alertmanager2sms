@@ -1,27 +1,41 @@
 package prom
 
 import (
+	"github.com/StephaneBunel/alertmanager2sms/pkg/appconfig"
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
+	"github.com/spf13/viper"
+
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/romana/rlog"
 )
 
 var (
-	AlertsReceived = prometheus.NewCounter(prometheus.CounterOpts{
-		Name: "alerts_received",
-		Help: "Total number of received alert",
+	WebRequestsTotal = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: (&appconfig.AppConfig{}).AppName() + "_web_requests_total",
+		Help: "Total number of alertmanager events received.",
 	})
 )
 
 func init() {
-	prometheus.MustRegister(AlertsReceived)
+	prometheus.MustRegister(WebRequestsTotal)
 }
 
-func (pm *promMetric) Config() {
-
+func (pm *promMetric) Config(conf *viper.Viper) error {
+	pm.config = conf
+	pm.once.Do(func() {
+		go pm.Serve()
+	})
+	return nil
 }
 
 func (pm *promMetric) IncCounter(name string) {
-
+	switch name {
+	case "web_requests_total":
+		WebRequestsTotal.Inc()
+		break
+	default:
+		rlog.Error("metric.IncCounter(", name, "): unknown")
+	}
 }
 
 func (pm *promMetric) Info() domain.MetricHandlerInfo {

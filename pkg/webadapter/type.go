@@ -12,5 +12,6 @@ type (
 		config    *viper.Viper
 		router    *mux.Router
 		eventChan domain.AmEventChan
+		metricer  domain.Metricer
 	}
 )

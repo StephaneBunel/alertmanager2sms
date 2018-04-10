@@ -15,11 +15,19 @@ import (
 
 // CreateWebAdapter returns a new web adapter wich is the REST API
 func CreateMetric(cnf *appconfig.AppConfig) domain.Metricer {
-	metric := catalog.Default().New("dummy")
+	handler := cnf.Viper.GetString(cnf.AppName() + ".stat.handler")
+	if handler == "" {
+		rlog.Warn("stat handler is nil. Using dummy handler")
+		handler = "dummy"
+	}
+	rlog.Debug("stat.handler =", handler)
+	handlerConfig := cnf.Viper.Sub(cnf.AppName() + ".stat.handlerConfig")
+	metric := catalog.Default().New(handler)
 	if metric == nil {
 		os.Exit(1)
 	}
+	metric.Config(handlerConfig)
 	rlog.Debug("metric:", metric)
-	rlog.Info("metric successfully created")
+	rlog.Info("metric (prometheus) successfully created")
 	return metric
 }

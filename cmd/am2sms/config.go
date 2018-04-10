@@ -21,7 +21,7 @@ func usage() {
 
 // CreateConfig returns a new appconfig object
 func CreateConfig() *appconfig.AppConfig {
-	configFileName := flag.String("config", "", "Configuration file in YAML")
+	configFileName := flag.String("config", "", "Path to YAML configuration file.")
 	flag.Usage = usage
 	flag.Parse()
 
