@@ -3,13 +3,14 @@ package prom
 import (
 	"sync"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spf13/viper"
 )
 
 type (
 	promMetric struct {
-		metrics map[string]interface{}
-		once    sync.Once
-		config  *viper.Viper
+		promCounterMap map[string]prometheus.Counter
+		once           sync.Once
+		config         *viper.Viper
 	}
 )

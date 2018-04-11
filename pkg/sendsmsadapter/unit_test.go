@@ -26,7 +26,7 @@ var event = domain.AmEvent{
 			EndsAt:       "0001-01-01T00:00:00Z",
 			GeneratorURL: "https://cc3-admin.inpsn.net/prometheus/graph?g0.expr=up+%3D%3D+0&g0.tab=0", Json: ""}}, GroupLabels: map[string]string{"alertname": "node_up"}, CommonLabels: map[string]string{"alertname": "node_up", "instance": "cc3-admin-1", "job": "node_exporter", "monitor": "packet/nj", "severity": "critical"}, CommonAnnotations: map[string]string{"description": "cc3-admin-1 of job node_exporter has been down for more than 5 minutes.", "summary": "Instance cc3-admin-1 is down"}, ExternalURL: "https://cc3-admin.inpsn.net/alertmanager",
 	Version:  "3",
-	GroupKey: 4964808624378674382}
+	GroupKey: "4964808624378674382"}
 
 var tpl = `
 {{ $numAlerts := len .Alerts }}Hello {{ .Receiver }},

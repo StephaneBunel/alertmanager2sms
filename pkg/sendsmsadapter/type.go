@@ -14,5 +14,6 @@ type (
 		smsService          sendsms.ISmsService
 		smsTemplate         string
 		recipientRepository domain.RecipientRepositoryer
+		metric              domain.Metricer
 	}
 )

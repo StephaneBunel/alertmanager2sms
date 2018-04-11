@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"strings"
 	"text/template"
+	"time"
 
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
 	"github.com/romana/rlog"
@@ -13,21 +14,25 @@ func (s *SendsmsAdapterHandle) Worker() error {
 	for {
 		select {
 		case event := <-s.eventChan:
+			t0 := time.Now()
 			rlog.Debug(event)
 			recipient := event.Receiver
 			rlog.Debug("recipient =", recipient)
 			recipients := s.recipientRepository.FindByName(recipient)
 			if len(recipients) == 0 {
 				rlog.Debug("recipient(s) not found")
-				break
+			} else {
+				phones := recipientsToPhones(recipients)
+				rlog.Debug("Recipient phones:", phones)
+				text := TemplateAmEvent(event, s.smsTemplate)
+				err := s.smsService.SendRaw(text, phones...)
+				if err != nil {
+					rlog.Error(err)
+				}
+				s.metric.IncCounter("sms_sent_total")
 			}
-			phones := recipientsToPhones(recipients)
-			rlog.Debug("Recipient phones:", phones)
-			text := TemplateAmEvent(event, s.smsTemplate)
-			err := s.smsService.SendRaw(text, phones...)
-			if err != nil {
-				rlog.Error(err)
-			}
+			tt := time.Since(t0)
+			rlog.Debug("sendsms duration:", tt.String())
 		}
 	}
 }

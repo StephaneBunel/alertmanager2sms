@@ -23,7 +23,7 @@ func CreateSendsmsAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventCh
 		rlog.Error("Configuration missing:", cnfKey)
 		os.Exit(1)
 	}
-	ssa := sendsmsadapter.New(configSms, configSendSms, amEventChan, rrs)
+	ssa := sendsmsadapter.New(configSms, configSendSms, amEventChan, rrs, metric)
 	rlog.Debug("Send Sms Interactor:", ssa)
 	rlog.Info("sendsms adapter successfully created")
 	return ssa

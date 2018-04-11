@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
 
@@ -20,17 +21,21 @@ func (srv *WebserviceHandle) getNewAmEvent(w http.ResponseWriter, req *http.Requ
 }
 
 func (srv *WebserviceHandle) postNewAmEvent(w http.ResponseWriter, req *http.Request) {
+	t0 := time.Now()
 	// params := mux.Vars(req)
 	rlog.Debug("Connection from:", req.RemoteAddr)
-	srv.metricer.IncCounter("web_requests_total")
+	srv.metricer.IncCounter("web_request_total")
 
 	var event domain.AmEvent
 	err := json.NewDecoder(req.Body).Decode(&event)
 	if err != nil {
 		rlog.Error(err)
+		srv.metricer.IncCounter("web_request_decode_error")
 		w.WriteHeader(http.StatusBadRequest)
 		msg := fmt.Sprintf(`{ "status": "ERROR", "message:", "%s" }`, err.Error())
 		w.Write([]byte(msg))
+		tt := time.Since(t0)
+		rlog.Debug("web request duration:", tt.String())
 		return
 	}
 	rlog.Trace(1, "Event:", event)
@@ -40,5 +45,8 @@ func (srv *WebserviceHandle) postNewAmEvent(w http.ResponseWriter, req *http.Req
 	case srv.eventChan <- &event:
 	default:
 		rlog.Error("Cannot push new event in channel. Try to raise eventBufferSize config parameter and restart.")
+		srv.metricer.IncCounter("event_dropped_total")
 	}
+	tt := time.Since(t0)
+	rlog.Debug("web request duration:", tt.String())
 }

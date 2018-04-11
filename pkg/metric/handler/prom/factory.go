@@ -11,7 +11,6 @@ var (
 
 func New() domain.Metricer {
 	p := new(promMetric)
-	p.metrics = make(map[string]interface{})
 	return p
 }
 

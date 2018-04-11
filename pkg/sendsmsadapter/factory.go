@@ -21,7 +21,7 @@ Begin: {{ $alert.StartsAt }}
 Thank you.
 `
 
-func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.AmEventChan, rrs domain.RecipientRepositoryer) *SendsmsAdapterHandle {
+func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.AmEventChan, rrs domain.RecipientRepositoryer, metric domain.Metricer) *SendsmsAdapterHandle {
 	if configSms == nil {
 		rlog.Error("configSms is nil")
 		os.Exit(1)
@@ -36,6 +36,7 @@ func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.Am
 	ss.config = configSms
 	ss.eventChan = eventChan
 	ss.recipientRepository = rrs
+	ss.metric = metric
 
 	confKey := "profile"
 	profileName := ss.config.GetString(confKey)
