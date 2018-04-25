@@ -17,6 +17,9 @@
 # Vendor subdirectory
 vendor/**/
 
+# release subdirectory
+release
+
 # Test config file (real ID)
 config.yml
 

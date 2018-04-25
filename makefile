@@ -6,6 +6,7 @@ GO           := go
 LDFLAGS      := -s -X "$(PACKAGE)/cmd/am2sms.VersionBuild=$(shell date --iso=s)"
 GOLINT       := golint
 BINARY       := am2sms
+GOBUILD      := $(GO) build -tags release -ldflags='$(LDFLAGS)'
 
 define formatme
 echo -n "-- formating… "
@@ -15,7 +16,7 @@ endef
 
 define buildme
 echo -n "-- building… "
-$(GO) build -tags release -ldflags='$(LDFLAGS)' -o $(BINARY) main.go
+$(GOBUILD) -o $(BINARY) main.go
 echo "Ok"
 endef
 
@@ -52,6 +53,18 @@ lint:
 .PHONY: test
 test:
 	@$(testme)
+
+.PHONY: release
+release:
+	@echo "-- building release… "
+	@rm -rf release
+	@mkdir release
+	@for os in linux darwin freebsd windows; do \
+		echo -n "        $${os}/amd64… "; \
+		GOOS=$${os} GOARCH=amd64 $(GOBUILD) -o release/$(BINARY)-$${os}-amd64 main.go; \
+		echo "Ok"; \
+	done
+	@echo "Ok"
 
 .PHONY: vendor
 vendor:
