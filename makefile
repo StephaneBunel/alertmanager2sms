@@ -73,5 +73,7 @@ vendor:
 
 .PHONY: clean
 clean:
-	@echo "-- cleaning…"
-	@rm -fv $(BINARY)
+	@echo -n "-- cleaning… "
+	@rm -f $(BINARY)
+	@rm -rf release
+	@echo "Ok"
