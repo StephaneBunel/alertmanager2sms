@@ -12,7 +12,7 @@ import (
 
 var (
 	// VersionBuild is defined at compile time
-	VersionBuild = "N/A" // Passed at compile time
+	VersionBuild = "N/A"
 )
 
 func usage() {

@@ -1,33 +1,34 @@
 SRC           = $(shell find . -name '*.go' -not -path "./vendor/*" )
 VERSION       = $(shell git describe --always --tags)
 COMMIT        = $(shell git rev-parse --short=8 HEAD)
+PACKAGE      := github.com/StephaneBunel/alertmanager2sms
 GO           := go
-LDFLAGS      := -s -X cmd.am2sms.VersionBuild=$(shell date --iso=s)
+LDFLAGS      := -s -X "$(PACKAGE)/cmd/am2sms.VersionBuild=$(shell date --iso=s)"
 GOLINT       := golint
 BINARY       := am2sms
 
 define formatme
-echo "-- formating…"
+echo -n "-- formating… "
 $(GO) fmt ./...
-echo "-- Ok"
+echo "Ok"
 endef
 
 define buildme
-echo "-- building…"
+echo -n "-- building… "
 $(GO) build -tags release -ldflags='$(LDFLAGS)' -o $(BINARY) main.go
-echo "-- Ok"
+echo "Ok"
 endef
 
 define lintme
-echo "-- linting…"
+echo -n "-- linting… "
 $(GOLINT) ./pkg/... ./cmd/...
-echo "-- Ok"
+echo "Ok"
 endef
 
 define testme
 echo "-- testing…"
 $(GO) test -race -cover -timeout 60s ./pkg/... ./cmd/...
-echo "-- Ok"
+echo "Ok"
 endef
 
 $(BINARY): $(SRC)
