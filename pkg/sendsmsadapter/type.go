@@ -8,7 +8,8 @@ import (
 )
 
 type (
-	SendsmsAdapterHandle struct {
+	// Handle object
+	Handle struct {
 		config              *viper.Viper
 		eventChan           domain.AmEventChan
 		smsService          sendsms.ISmsService

@@ -5,6 +5,7 @@ import (
 )
 
 type (
+	// AppConfig data structur
 	AppConfig struct {
 		Viper *viper.Viper
 	}

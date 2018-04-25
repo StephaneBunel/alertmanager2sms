@@ -5,6 +5,7 @@ import (
 	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient/catalog"
 )
 
+// New returns a CSV implementation of a recipient repository
 func New() domain.RecipientRepositoryer {
 	return new(csvRepositoryHandle)
 }

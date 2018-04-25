@@ -3,6 +3,7 @@ package domain
 import "github.com/spf13/viper"
 
 type (
+	// Recipient represent the minimal informations about a recipient
 	Recipient struct {
 		Name         string
 		PhoneNumbers []string
@@ -10,8 +11,10 @@ type (
 		Tags         []string
 	}
 
+	// RecipientList is a list of recipients
 	RecipientList []*Recipient
 
+	// RecipientRepositoryHandlerInfo must be passed by each recipient repository when it registers itself.
 	RecipientRepositoryHandlerInfo struct {
 		Name             string
 		Version          string
@@ -22,6 +25,7 @@ type (
 		LongDescription  string
 	}
 
+	// RecipientRepositoryer is a recipient repository interface
 	RecipientRepositoryer interface {
 		Config(*viper.Viper) error
 		Add(*Recipient) error

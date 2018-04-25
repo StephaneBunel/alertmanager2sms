@@ -1,4 +1,4 @@
-package main
+package am2sms
 
 import (
 	"github.com/StephaneBunel/alertmanager2sms/pkg/appconfig"

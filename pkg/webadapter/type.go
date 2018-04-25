@@ -8,6 +8,7 @@ import (
 )
 
 type (
+	// WebserviceHandle object
 	WebserviceHandle struct {
 		config    *viper.Viper
 		router    *mux.Router

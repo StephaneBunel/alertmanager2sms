@@ -1,9 +1,9 @@
-package fromcsv_test
+package fromcsv
 
 import (
 	"testing"
 
-	"github.com/StephaneBunel/alertmanager2sms/pkg/recipient/handler/fromcsv"
+	// "github.com/StephaneBunel/alertmanager2sms/pkg/recipient/handler/fromcsv"
 
 	"github.com/spf13/viper"
 )
@@ -12,7 +12,7 @@ func TestFromFile(t *testing.T) {
 	conf := viper.New()
 	conf.Set("filename", "../../../../test/recipients.csv")
 
-	recipRepo := fromcsv.New()
+	recipRepo := New()
 	err := recipRepo.Config(conf)
 	if err != nil {
 		t.Error(err)

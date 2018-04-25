@@ -6,6 +6,7 @@ import (
 	"github.com/romana/rlog"
 )
 
+// Serve starts listening and serving of http requests
 func (srv *WebserviceHandle) Serve() {
 	endpoint := "/"
 	rlog.Info("Adding home endpoint: GET", endpoint)

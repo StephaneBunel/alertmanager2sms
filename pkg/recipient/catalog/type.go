@@ -5,6 +5,7 @@ import (
 )
 
 type (
+	// RecipientRepositoryCataloger define a RecipientRepository catalog interface
 	RecipientRepositoryCataloger interface {
 		Register(func() domain.RecipientRepositoryer, domain.RecipientRepositoryHandlerInfo)
 		Exists(name string) bool

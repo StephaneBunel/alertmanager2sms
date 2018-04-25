@@ -1,4 +1,4 @@
-package main
+package am2sms
 
 import (
 	"os"
@@ -13,7 +13,7 @@ import (
 	"github.com/romana/rlog"
 )
 
-// CreateWebAdapter returns a new web adapter wich is the REST API
+// CreateMetric returns a new metric according to user preferences
 func CreateMetric(cnf *appconfig.AppConfig) domain.Metricer {
 	handler := cnf.Viper.GetString(cnf.AppName() + ".stat.handler")
 	if handler == "" {

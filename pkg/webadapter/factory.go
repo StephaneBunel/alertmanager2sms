@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// New returns a new webadapter
 func New(config *viper.Viper, eventChan domain.AmEventChan, metric domain.Metricer) *WebserviceHandle {
 	w := new(WebserviceHandle)
 	w.config = config

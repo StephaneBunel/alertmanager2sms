@@ -11,6 +11,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// New returns a new config object
 func New(configFile string) *AppConfig {
 	c := new(AppConfig)
 	c.Viper = viper.New()
@@ -23,7 +24,7 @@ func New(configFile string) *AppConfig {
 		c.Viper.AddConfigPath(path.Join("."))
 		err := c.Viper.ReadInConfig()
 		if err != nil {
-			_ = fmt.Errorf("Error reading configuration: %s \n", err)
+			_ = fmt.Errorf("error reading configuration: %s", err)
 			os.Exit(1)
 		}
 	} else {

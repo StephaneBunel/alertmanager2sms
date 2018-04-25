@@ -10,7 +10,10 @@ import (
 	"github.com/romana/rlog"
 )
 
-func (s *SendsmsAdapterHandle) Worker() error {
+// Worker wait over domain.EventChan for new domain.AmEvent object.
+// Each AmEvent contains one or more AmAlert. AmEvent is templated to text
+// and send to recipient
+func (s *Handle) Worker() error {
 	for {
 		select {
 		case event := <-s.eventChan:
@@ -24,7 +27,7 @@ func (s *SendsmsAdapterHandle) Worker() error {
 			} else {
 				phones := recipientsToPhones(recipients)
 				rlog.Debug("Recipient phones:", phones)
-				text := TemplateAmEvent(event, s.smsTemplate)
+				text := templateAmEvent(event, s.smsTemplate)
 				err := s.smsService.SendRaw(text, phones...)
 				if err != nil {
 					rlog.Error(err)
@@ -45,7 +48,7 @@ func recipientsToPhones(recipients domain.RecipientList) []string {
 	return phones
 }
 
-func TemplateAmEvent(event *domain.AmEvent, tpl string) string {
+func templateAmEvent(event *domain.AmEvent, tpl string) string {
 	funcMap := template.FuncMap{
 		"ToUpper": strings.ToUpper,
 		"ToLower": strings.ToLower,

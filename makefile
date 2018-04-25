@@ -1,22 +1,63 @@
-PROJ = github.com/StephaneBunel/alertmanager2sms
-EXE = am2sms
-SRC = cmd/**/*.go \
-      pkg/**/*.go \
+SRC           = $(shell find . -name '*.go' -not -path "./vendor/*" )
+VERSION       = $(shell git describe --always --tags)
+COMMIT        = $(shell git rev-parse --short=8 HEAD)
+GO           := go
+LDFLAGS      := -s -X cmd.am2sms.VersionBuild=$(shell date --iso=s)
+GOLINT       := golint
+BINARY       := am2sms
 
-LDFLAGS = -s -X main.VersionBuild=$(shell date --iso=s)
-GOBUILD = go build -v -ldflags="$(LDFLAGS)"
+define formatme
+echo "-- formating…"
+$(GO) fmt ./...
+echo "-- Ok"
+endef
 
-all: $(EXE)
+define buildme
+echo "-- building…"
+$(GO) build -tags release -ldflags='$(LDFLAGS)' -o $(BINARY) main.go
+echo "-- Ok"
+endef
 
-$(EXE): $(SRC)
-	$(GOBUILD) $(PROJ)/cmd/am2sms
+define lintme
+echo "-- linting…"
+$(GOLINT) ./pkg/... ./cmd/...
+echo "-- Ok"
+endef
 
-govendor:
+define testme
+echo "-- testing…"
+$(GO) test -race -cover -timeout 60s ./pkg/... ./cmd/...
+echo "-- Ok"
+endef
+
+$(BINARY): $(SRC)
+	@$(formatme)
+	@$(buildme)
+	@$(lintme)
+	@$(testme)
+
+.PHONY: format
+format:
+	@$(formatme)
+
+.PHONY: build
+build:
+	@$(buildme)
+
+.PHONY: lint
+lint:
+	@$(lintme)
+
+.PHONY: test
+test:
+	@$(testme)
+
+.PHONY: vendor
+vendor:
+	@echo "-- syncing vendor dependencies…"
 	@govendor sync -v
 
+.PHONY: clean
 clean:
-	@rm -fv $(EXE)
-	@rm -rfv ${GOPATH}/pkg/*/$(PROJ)/pkg/*
-
-tests:
-	go test -cover -timeout 60s $(PROJ)/pkg/...
+	@echo "-- cleaning…"
+	@rm -fv $(BINARY)

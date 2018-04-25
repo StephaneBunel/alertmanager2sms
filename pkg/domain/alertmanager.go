@@ -3,7 +3,7 @@ package domain
 import "github.com/romana/rlog"
 
 type (
-	// AlertManagerEvent represents the JSON struct that is POST'd to a web_hook
+	// AmEvent or AlertManagerEvent represents the JSON structur that is POST'd to a web_hook
 	// received from Prometheus' Alertmanager.  There are other fields in the
 	// JSON blob which are not included here.
 	AmEvent struct {
@@ -18,7 +18,7 @@ type (
 		GroupKey          string            `json:"groupKey"`
 	}
 
-	// Alert represents an individual alert from Prometheus and included in the
+	// AmAlert represents an individual alert from Prometheus and included in the
 	// JSON blob POST'd via the Alertmanager.
 	AmAlert struct {
 		Status       string            `json:"status"`
@@ -27,14 +27,15 @@ type (
 		StartsAt     string            `json:"startsAt"`
 		EndsAt       string            `json:"endsAt"`
 		GeneratorURL string            `json:"generatorURL"`
-		Json         string            `json:"-"` // Json is not from the alert JSON but holds a JSON formatted string
+		JSON         string            `json:"-"` // Json is not from the alert JSON but holds a JSON formatted string
 		// of this alert.  It is not the same JSON as originally passed in.
 	}
 
+	// AmEventChan is used to independently communicate between the webadapter and the senssmsadapter worker
 	AmEventChan chan *AmEvent
 )
 
-// NewEvantChan returns a new Alertmanger Event channel
+// NewEventChan returns a new Alertmanger Event channel
 func NewEventChan(qlen int) AmEventChan {
 	if qlen < 1 {
 		qlen = 128

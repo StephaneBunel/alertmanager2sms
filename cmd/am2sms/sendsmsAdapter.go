@@ -1,4 +1,4 @@
-package main
+package am2sms
 
 import (
 	"os"
@@ -10,7 +10,7 @@ import (
 )
 
 // CreateSendsmsAdapter returns a new sendsms library adapter object
-func CreateSendsmsAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventChan, rrs domain.RecipientRepositoryer, metric domain.Metricer) *sendsmsadapter.SendsmsAdapterHandle {
+func CreateSendsmsAdapter(cnf *appconfig.AppConfig, amEventChan domain.AmEventChan, rrs domain.RecipientRepositoryer, metric domain.Metricer) *sendsmsadapter.Handle {
 	cnfKey := cnf.AppName() + ".sms"
 	configSms := cnf.Viper.Sub(cnfKey)
 	if configSms == nil {

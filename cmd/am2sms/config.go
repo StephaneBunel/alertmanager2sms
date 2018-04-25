@@ -1,4 +1,4 @@
-package main
+package am2sms
 
 import (
 	"flag"
@@ -11,6 +11,7 @@ import (
 )
 
 var (
+	// VersionBuild is defined at compile time
 	VersionBuild = "N/A" // Passed at compile time
 )
 

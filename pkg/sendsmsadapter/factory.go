@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/StephaneBunel/alertmanager2sms/pkg/domain"
+	// import all providers to init() them
 	_ "github.com/StephaneBunel/sendsms/pkg/provider"
 	sendsms "github.com/StephaneBunel/sendsms/pkg/sms"
 
@@ -21,7 +22,8 @@ Begin: {{ $alert.StartsAt }}
 Thank you.
 `
 
-func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.AmEventChan, rrs domain.RecipientRepositoryer, metric domain.Metricer) *SendsmsAdapterHandle {
+// New returns a new sendsms adapter
+func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.AmEventChan, rrs domain.RecipientRepositoryer, metric domain.Metricer) *Handle {
 	if configSms == nil {
 		rlog.Error("configSms is nil")
 		os.Exit(1)
@@ -32,7 +34,7 @@ func New(configSms *viper.Viper, configSendSms *viper.Viper, eventChan domain.Am
 		os.Exit(1)
 	}
 
-	ss := new(SendsmsAdapterHandle)
+	ss := new(Handle)
 	ss.config = configSms
 	ss.eventChan = eventChan
 	ss.recipientRepository = rrs

@@ -5,6 +5,7 @@ import (
 	"github.com/StephaneBunel/alertmanager2sms/pkg/metric/catalog"
 )
 
+// New returns a noop Metricer instance
 func New() domain.Metricer {
 	h := new(dummyMetric)
 	return h

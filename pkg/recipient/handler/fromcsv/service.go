@@ -13,15 +13,15 @@ import (
 	"github.com/spf13/viper"
 )
 
-func (rr *csvRepositoryHandle) ReadFromFile(filename string) error {
+func (rh *csvRepositoryHandle) ReadFromFile(filename string) error {
 	csvFile, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return err
 	}
-	return rr.ReadFromString(string(csvFile))
+	return rh.ReadFromString(string(csvFile))
 }
 
-func (rr *csvRepositoryHandle) ReadFromString(body string) error {
+func (rh *csvRepositoryHandle) ReadFromString(body string) error {
 	r := csv.NewReader(strings.NewReader(body))
 	r.Comment = '#'
 	for {
@@ -36,7 +36,7 @@ func (rr *csvRepositoryHandle) ReadFromString(body string) error {
 			recip := domain.NewRecipient()
 			recip.Name = record[0]
 			recip.PhoneNumbers = strings.Split(record[1], ":")
-			err := rr.Add(recip)
+			err := rh.Add(recip)
 			if err != nil {
 				return err
 			}
@@ -55,7 +55,7 @@ func (rh *csvRepositoryHandle) Config(conf *viper.Viper) error {
 	if filename := conf.GetString("filename"); filename != "" {
 		return rh.ReadFromFile(filename)
 	}
-	return errors.New("You must give a filename to use CSV with recipients.")
+	return errors.New("you must give a filename to use CSV with recipients")
 }
 
 func (rh *csvRepositoryHandle) Info() domain.RecipientRepositoryHandlerInfo {
