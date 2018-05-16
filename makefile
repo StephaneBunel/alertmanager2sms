@@ -38,6 +38,14 @@ $(BINARY): $(SRC)
 	@$(lintme)
 	@$(testme)
 
+.PHONY: help
+help:
+	@echo "  format  -- Reformat golang code"
+	@echo "  build   -- Create main binary"
+	@echo "  lint    -- Lint source code"
+	@echo "  test    -- Run tests"
+	@echo "  release -- Create binary for other platform"
+
 .PHONY: format
 format:
 	@$(formatme)
