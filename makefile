@@ -69,7 +69,7 @@ release:
 .PHONY: vendor
 vendor:
 	@echo "-- syncing vendor dependencies…"
-	@govendor sync -v
+	@glide install
 
 .PHONY: clean
 clean:
