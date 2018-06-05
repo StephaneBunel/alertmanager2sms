@@ -10,7 +10,7 @@ import (
 
 func TestFromFile(t *testing.T) {
 	conf := viper.New()
-	conf.Set("filename", "../../../../test/recipients.csv")
+	conf.Set("filename", "../../../../test/recipient.handler.fromcsv/recipients.csv")
 
 	recipRepo := New()
 	err := recipRepo.Config(conf)
