@@ -24,14 +24,14 @@ func New(configFile string) *AppConfig {
 		c.Viper.AddConfigPath(path.Join("."))
 		err := c.Viper.ReadInConfig()
 		if err != nil {
-			_ = fmt.Errorf("error reading configuration: %s", err)
+			fmt.Fprintf(os.Stderr, "error reading configuration: %s", err)
 			os.Exit(1)
 		}
 	} else {
 		c.Viper.SetConfigType("yaml")
 		fileData, err := ioutil.ReadFile(configFile)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Fprint(os.Stderr, err)
 			os.Exit(1)
 		}
 		c.Viper.ReadConfig(bytes.NewBuffer(fileData))
